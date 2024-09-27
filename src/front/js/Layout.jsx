@@ -4,12 +4,14 @@ import injectContext from "./store/appContext.js";
 // custom component
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
-import { Navbar } from "./component/navbar";
+import { Navbar } from "./component/Navbar.jsx";
 import { Footer } from "./component/footer";
 // custom pages 
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import { Contact } from "./pages/Contact.jsx";
+
 
 
 
@@ -24,11 +26,13 @@ const Layout = () => {
 
     return (
         <div>
+
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
+                        <Route element={<Contact/>} path="/contact"/> 
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
