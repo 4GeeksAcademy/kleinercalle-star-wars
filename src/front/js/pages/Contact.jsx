@@ -1,60 +1,63 @@
-import React from "react";
+import React, { useContext} from "react";
+import { Context } from "../store/appContext.js";
+import { useNavigate } from "react-router-dom";
 
 
 export const Contact = () => {
-    return (
-        <div className="container bg-dark mb-3">
+    const { store, actions } = useContext(Context)
+    const navigate = useNavigate();
 
-            <div className="navbar navbar-dark bg-dark ">
-                <h1 className="text-light pt-4">Contacts</h1>
-                <button className="btn btn-secondary">Add Contact</button>
+    const handleAddContact = () => {
 
+        navigate ('/Add-Contact')
+       
+    }
 
-                <div className=" container card mb-3 d-flex justify-content-between">
-                    <div className="row g-0 bg-secondary bg-opacity-10">
-                        <div className="col-md-3 p-2 position-relative">
-                        </div>
-                        <div className="">
-                           <img src="" alt="" />
-                        </div>
-                        <div className="d-flex col-md-7 p-2 position-relative text-start">
-                            <div className="card-body">
-                                <h5 className="card-title">Kleiner garcia      </h5>
-                                <p className="card-text">
-                                    madison street <br/>283754587 <br /> kleinerg@gmail.com</p>
-                            
-                            </div>
-                        </div>
-                    </div>
+    const handleEdit = (contact) => {
+        console.log(contact)
+        actions.setCurrentContact(contact)
+         navigate('/Edit-Contact') 
+     }
+
+     const handleDelete = (id) => {
+        actions.deleteContact(id)
+      }
+
+    return  (
+        <div className="container">
+          <button onClick={handleAddContact} className="btn btn-success mb-3 ">Add Contact</button>
+          <ul className="list-group">
+            {store.contacts.map((item) =>
+              <li key={item.id} className="list-group-item d-flex justify-content-between">
+                <div>
+                    <span className="d-flex"> 
+                    <h5>{item.name}</h5>
+                    </span>
+                    <span className="d-flex"> 
+                    <i class="fa-solid fa-location-dot mx-1 text-secondary"></i>
+                    <p>{item.address}</p>
+                    </span>
+                    <span className="d-flex"> 
+                    <i class="fa-solid fa-phone mx-1 text-secondary"></i>
+                    <p>{item.phone}</p>
+                    </span>
+                    <span className="d-flex"> 
+                    <i class="fa-solid fa-envelope mx-1 text-secondary"></i>
+                    <p>{item.email}</p>
+                    </span>
                 </div>
-
-
-
-                <div className="  card mb-3 d-flex justify-content-between">
-                    <div className="row g-0 bg-secondary bg-opacity-10">
-                        <div className="col-md-3 p-2 position-relative">
-                        </div>
-                        <div className="d-none d-md-block position-absolute top-50 start-50 translate-middle">
-                            <img src="" alt="" />
-                        </div>
-                        <div className="d-flex col-md-7 p-2 position-relative text-start">
-                            <div className="card-body">
-                                <h5 className="card-title">Kleiner garcia      </h5>
-                                <p className="card-text">
-                                    madison street <br/>283754587 <br /> kleinerg@gmail.com</p>
-                            
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                  <span onClick={() => handleEdit(item)}>
+                    <i className="fas fa-pencil-alt  mx-1"></i>
+                  </span>
+                  <span onClick={() => handleDelete(item.id)}>
+                    <i className="fas fa-trash-alt  mx-4"></i>
+                  </span>
                 </div>
-
-            </div>
-
-
-
-
+              </li> 
+            )}
+          </ul>
         </div>
-
-
-    )
+      )
+    
 }
