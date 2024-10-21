@@ -27,8 +27,8 @@ export const EditContact = () => {
   }
 
   return (
-    <div className="container">
-      <h1>Edit Contact</h1>
+    <div className="container vh-100 w-50 text-secondary">
+      <h1 className="text-light pt-4">Edit Contact</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="inputName" className="form-label">Name</label>
@@ -50,7 +50,10 @@ export const EditContact = () => {
           <input type="text" className="form-control" id="inputAddress"
             value={address} onChange={handleAddress}/>
         </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <span className="d-flex justify-content-end">
+
+        <button type="submit" className="btn btn-warning">Save</button>
+        </span>
       </form>
     </div>
   )
