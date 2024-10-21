@@ -2,10 +2,8 @@ import React, { useContext } from "react";
 import "../../styles/home.css";
 
 
-
 export const Home = () => {
 
-	
 	return (
 
 		<div className="text-center mt-5 bg dark">
@@ -17,7 +15,7 @@ export const Home = () => {
 			
 			</div>
 			<p>
-				
+			
 			</p>
 		</div>
 	);
