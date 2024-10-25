@@ -13,12 +13,9 @@ class Users(db.Model):
         return f'<User {self.email}>'
 
     def serialize(self):
-        # Do not serialize the password, it’s a security breach
-        return {
-            "id": self.id,
-            "email": self.email,
-            "is_active": self.is_active
-        }
+        return {"id": self.id,
+                "email": self.email,
+                'is_active': self.is_active}
     
 
 class Character(db.Model):
@@ -27,10 +24,8 @@ class Character(db.Model):
     name = db.Column(db.String(250), nullable=False)
 
     def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name
-        }
+        return {"id": self.id,
+                "name":  self.name}
 
 
 class Planet(db.Model):
@@ -39,10 +34,8 @@ class Planet(db.Model):
     name = db.Column(db.String(250), nullable=False)
 
     def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name
-        }
+        return {"id": self.id,
+                "name": self.name}
 
 
 class Favorite(db.Model):
@@ -56,9 +49,7 @@ class Favorite(db.Model):
     planet = db.relationship(Planet)
 
     def to_dict(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "user_character": self.user_character,
-            "user_planet": self.user_planet
-        }
+        return {"id": self.id,
+                "user_id": self.user_id,
+                "user_character": self.user_character,
+                "user_planet": self.user_planet}
