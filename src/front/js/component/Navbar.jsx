@@ -38,7 +38,6 @@ export const Navbar = () => {
 						</li>
 					</ul>
 					<BtnFavorites />
-
 				</div>
 			</div>
 		</nav>
