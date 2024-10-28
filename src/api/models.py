@@ -5,8 +5,8 @@ db = SQLAlchemy()
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    email = db.Column(db.String(), unique=True, nullable=False)
+    password = db.Column(db.String(), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
@@ -45,20 +45,18 @@ class Planet(db.Model):
         }
 
 
-class Favorite(db.Model):
-    __tablename__ = 'favorite'
+class FavoritePlanets(db.Model):
+    __tablename__ = 'favorite_planets'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    user_character = db.Column(db.Integer, db.ForeignKey('character.id'), nullable=True)
-    user_planet = db.Column(db.Integer, db.ForeignKey('planet.id'), nullable=True)
-    user = db.relationship(Users)
-    character = db.relationship(Character)
-    planet = db.relationship(Planet)
+    planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'))
+    user_to = db.relationship(Users, foreign_keys=[user_id], backref=db.backref("favorite_planets", lazy="select"))
+    planet_to = db.relationship(Planet, foreign_keys=[planet_id], backref=db.backref("users_fans", lazy="select"))
+
 
     def to_dict(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "user_character": self.user_character,
-            "user_planet": self.user_planet
+            "planet_id": self.planet_id
         }
