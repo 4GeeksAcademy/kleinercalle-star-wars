@@ -26,7 +26,7 @@ class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False)
 
-    def to_dict(self):
+    def serialize(self):
         return {
             "id": self.id,
             "name": self.name
@@ -38,7 +38,7 @@ class Planet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False)
 
-    def to_dict(self):
+    def serialize(self):
         return {
             "id": self.id,
             "name": self.name
@@ -48,13 +48,14 @@ class Planet(db.Model):
 class FavoritePlanets(db.Model):
     __tablename__ = 'favorite_planets'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    #user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    #user_to = db.relationship("Users", foreign_keys=[user_id])
     planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'))
-    user_to = db.relationship(Users, foreign_keys=[user_id], backref=db.backref("favorite_planets", lazy="select"))
-    planet_to = db.relationship(Planet, foreign_keys=[planet_id], backref=db.backref("users_fans", lazy="select"))
+    #user_to = db.relationship("Users", foreign_keys=[user_id], backref=db.backref("favorite_planets", lazy="select"))
+    planet_to = db.relationship("Planet", foreign_keys=[planet_id], backref=db.backref("users_fans", lazy="select"))
 
 
-    def to_dict(self):
+    def serialize(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
